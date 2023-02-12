@@ -1,0 +1,163 @@
+<app-loader *ngIf="loader==true"></app-loader>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-3 col-lg-3 d-flex justify-content-center m-2" *ngFor="let d of dummy">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <img mat-card-image src="{{d.image}}" alt="" style="width: 100% !important;height: 15rem;object-fit: contain;">
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+        </mat-card-header>
+        <mat-card-title class="text-center">{{d.name}}</mat-card-title>
+        <mat-card-subtitle class="text-center">{{d.price}}-{{defaultCoin}}</mat-card-subtitle>
+        <mat-card-content>
+        </mat-card-content>
+        <mat-card-actions class="d-flex justify-content-center">
+          <button mat-button (click)="addToCart(d)">ADD</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <form  *ngIf="loader==false">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Select Coin</mat-label>
+                    <mat-select (selectionChange)="minPayoutAmount($event)" [formControl]="fcn_c_from">
+                        <mat-option *ngFor="let c of currenciesList" [value]="c" #v>{{c}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div> 
+
+            <div class="col-12">
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter Amount</mat-label>
+                    <input matInput [formControl]="fcn_amount">
+                    <mat-error *ngIf="!fcn_amount.valid">{{getAmountError()}}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12">
+                <button (click)="submit($event)">
+                    PAY
+                </button>
+            </div>   
+        </div>
+    </div>
+</form> -->
+
+<div *ngIf="loginStatus" class="container mt-4">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="order_id">
+          <th mat-header-cell *matHeaderCellDef> Order ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.order_id}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="order_des">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.order_description}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.payment_status}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="created">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      
+</div>
+
+<div *ngIf="!loginStatus && !paymentStatus" class="container mt-4 text-center">
+  <table mat-table [dataSource]="cartItem" class="mat-elevation-z8">
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Product ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="qnty">
+        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        <td mat-footer-cell *matFooterCellDef><b>Total :</b></td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Total </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity * element.price}} </td>
+        <td mat-footer-cell *matFooterCellDef><b>{{getTotalCost() | currency:'BTC  '}}</b> </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="cartColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: cartColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="cartColumns"></tr>
+    </table>
+
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Select Your Currency</mat-label>
+          <mat-select required [formControl]="fcn_c_from" (selectionChange)="minPayoutAmount($event)"> <!--(selectionChange)="getEstimatePrice($event)"-->
+            <mat-option *ngFor="let c of currenciesList" [value]="c">
+              {{c}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <div class="col-12" *ngIf="estimatedAmountStatus">
+        <mat-label class="h3 text-danger">Estimate amount in your currency : {{estimated_amount?.estimated_amount}} '{{fcn_c_from.value}}'</mat-label>
+      </div>
+
+      <div class="col-12">
+        <button mat-raised-button color="primary" [disabled]="!fcn_c_from.valid" class="mt-4" (click)="buy()">PAY</button>
+      </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="paymentStatus">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <img src="../../../assets/qr.png" alt="">
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      {{payment_status_data}}
+    </div>
+  </div>
+</div>

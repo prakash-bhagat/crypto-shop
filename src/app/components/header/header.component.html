@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+  <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button> -->
+  <span>Home</span>
+  <span class="example-spacer"></span>
+  <button mat-button [matMenuTriggerFor]="belowMenu">
+    <mat-icon class="mx-2">shopping_cart</mat-icon>
+  </button>
+  <mat-menu #belowMenu="matMenu" yPosition="below">
+    <button mat-menu-item>
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+        </tr>
+        <tr  *ngFor="let c of cart" class="text-center">
+          <td>{{c.name | slice:0:10}}</td>
+          <td>{{c.quantity}}</td>
+        </tr>
+      </table>
+    </button>
+    <hr>
+    <div class="d-flex justify-content-center">
+    <button mat-raised-button color="warn">View cart</button>
+    </div>
+  </mat-menu>
+
+  <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button> -->
+</mat-toolbar>
