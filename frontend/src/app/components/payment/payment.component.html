@@ -1,0 +1,60 @@
+
+<div class="flex items-center justify-center mt-20 font-bold tracking-tight text-gray-900">
+  <h5>Don't close or refresh the page</h5><br>
+</div>
+<div class="flex items-center justify-center font-bold tracking-tight text-gray-900">
+<h6>After successful payment it will automatically redirect</h6>
+</div>
+
+<div *ngIf="process==false;">
+  <div class="timer mt-8">
+    <div class="flex items-center justify-center">
+      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+        <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M10 6v4l3.276 3.276M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+      </svg>
+      <h4 class="font-bold ml-1">Time left :</h4>
+      <div class="ml-2 font-bold">
+        <span id="days"> {{timeDifference}} </span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="w-full flex mt-8 justify-center mb-4 bg-white">
+    <a href="#">
+        <img class="rounded-t-lg" src="../../../assets/qr.png" alt="" />
+    </a>
+    <div class="p-5">
+        <a href="#">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <span class="loader"></span>
+            {{payment_status_data}}
+            </h5>
+        </a>
+    </div>
+  </div>
+  <div class="mb-40 flex justify-center">
+    <table>
+      <tbody>
+        <tr>
+          <td>Transaction id</td>
+          <td> : </td>
+          <td>{{payment_id}}</td>
+        </tr>
+        <tr>
+          <td>Currency</td>
+          <td> : </td>
+          <td>{{pay_currency}}</td>
+        </tr>
+        <tr>
+          <td>Amount</td>
+          <td> : </td>
+          <td>{{pay_amount}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="h-[60vh]" *ngIf="process==true">
+  <app-processing></app-processing>
+</div>

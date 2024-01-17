@@ -1,0 +1,227 @@
+<div class="container grid grid-cols-12 items-center pb-16 pt-4 gap-6 mt-20">
+
+  <!-- <div class="col-span-8 border border-gray-200 p-4 rounded">
+        <h3 class="text-lg font-medium capitalize mb-4">Checkout</h3>
+        <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="first-name" class="text-gray-600">First Name <span
+                            class="text-primary">*</span></label>
+                    <input type="text" name="first-name" id="first-name" class="input-box">
+                </div>
+                <div>
+                    <label for="last-name" class="text-gray-600">Last Name <span
+                            class="text-primary">*</span></label>
+                    <input type="text" name="last-name" id="last-name" class="input-box">
+                </div>
+            </div>
+            <div>
+                <label for="company" class="text-gray-600">Company</label>
+                <input type="text" name="company" id="company" class="input-box">
+            </div>
+            <div>
+                <label for="region" class="text-gray-600">Country/Region</label>
+                <input type="text" name="region" id="region" class="input-box">
+            </div>
+            <div>
+                <label for="address" class="text-gray-600">Street address</label>
+                <input type="text" name="address" id="address" class="input-box">
+            </div>
+            <div>
+                <label for="city" class="text-gray-600">City</label>
+                <input type="text" name="city" id="city" class="input-box">
+            </div>
+            <div>
+                <label for="phone" class="text-gray-600">Phone number</label>
+                <input type="text" name="phone" id="phone" class="input-box">
+            </div>
+            <div>
+                <label for="email" class="text-gray-600">Email address</label>
+                <input type="email" name="email" id="email" class="input-box">
+            </div>
+            <div>
+                <label for="company" class="text-gray-600">Company</label>
+                <input type="text" name="company" id="company" class="input-box">
+            </div>
+        </div>
+
+    </div> -->
+
+  <div class="col-span-2"></div>
+
+  <div class="col-span-8 border border-gray-200 p-4 rounded">
+    <h4 class="text-gray-800 text-lg mb-4 font-medium uppercase">order summary</h4>
+    <div class="space-y-2">
+      <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                S.N
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Product name
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Quantity
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Price
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let c of cartItems;index as i">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{i+1}}
+              </th>
+              <td class="px-6 py-4">
+                {{c.name | slice:0:20}}
+              </td>
+              <td class="px-6 py-4">
+                {{c.quantity}}
+              </td>
+              <td class="px-6 py-4">
+                ETH {{c.price}}
+              </td>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                
+              </th>
+              <td class="px-6 py-4">
+                
+              </td>
+              <td class="px-6 py-4">
+                Sub Total
+              </td>
+              <th class="px-6 py-4">
+                ETH {{sum}}
+              </th>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                
+              </th>
+              <td class="px-6 py-4">
+                
+              </td>
+              <td class="px-6 py-4">
+                Shipping
+              </td>
+              <th class="px-6 py-4">
+                Free
+              </th>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                
+              </th>
+              <td class="px-6 py-4">
+                
+              </td>
+              <td class="px-6 py-4">
+                Total
+              </td>
+              <th class="px-6 py-4">
+                ETH {{sum}}
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="flex items-center mb-4 mt-2">
+      <input type="checkbox" (click)="aggrement()"
+        class="text-primary focus:ring-0 rounded-sm cursor-pointer w-3 h-3" [checked]="aggrementCheck">
+      <label for="aggrement" class="text-gray-600 ml-3 cursor-pointer text-sm">I agree to the <a href="#"
+          class="text-primary">terms & conditions</a></label>
+    </div>
+
+    <!-- select method -->
+    <div class="flex gap-1">
+      <!-- <div class="flex items-center">
+        <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="inr">
+          <input name="type" type="radio" [(ngModel)]="selectedMethod" value="1"
+            class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
+            id="inr" />
+          <span
+            class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
+              <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
+            </svg>
+          </span>
+        </label>
+        <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="inr">
+          INR
+        </label>
+      </div> -->
+      <div class="flex items-center">
+        <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="crypto">
+          <input name="type" type="radio" [(ngModel)]="selectedMethod" value="2" (click)="payMethod(crypto.value)"
+            class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
+            id="crypto" #crypto />
+          <span
+            class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
+              <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
+            </svg>
+          </span>
+        </label>
+        <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="crypto">
+          Crypto
+        </label>
+      </div>
+      <div class="flex items-center">
+        <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="cod">
+          <input name="type" type="radio" [(ngModel)]="selectedMethod" value="3" (click)="payMethod(cod.value)"
+            class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-blue-gray-200 text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
+            id="cod" #cod/>
+          <span
+            class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
+              <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
+            </svg>
+          </span>
+        </label>
+        <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="cod">
+          COD
+        </label>
+      </div>
+    </div>
+
+    <!-- currency -->
+    <form *ngIf="showCurrencyDropdown" [formGroup]="cryptoForm" class="flex mb-4 items-center bg-gray-100 font-poppins dark:bg-gray-800">
+      <select id="pricingType" name="pricingType" (change)="currencySelected()" formControlName="selectedCurrencies"
+      class="w-full h-10 border-2 border-sky-500 focus:outline-none focus:border-sky-500 text-sky-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider">
+        <option *ngFor="let c of selectCurrency" [value]="c">{{c}}</option>
+    </select>
+  </form>
+    <!-- ./currency -->
+
+    <a (click)="makePayment()" *ngIf="selectedMethod == '3' && aggrementCheck==true"
+      class="block cursor-pointer w-full py-3 px-4 text-center text-white bg-primary border border-primary rounded-md transition font-medium">
+      <svg *ngIf="payLoader" aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-pink-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+      Place order
+    </a>
+    <a (click)="makePayment()" *ngIf="(selectedMethod == '2' && isCrypto) && aggrementCheck==true"
+      class="block cursor-pointer w-full py-3 px-4 text-center text-white bg-primary border border-primary rounded-md transition font-medium">
+      <svg *ngIf="payLoader" aria-hidden="true" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-pink-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+      Pay with Bitcoin
+    </a>
+  </div>
+
+  <div class="col-span-2"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<app-processing *ngIf="process==true;"></app-processing>
+<!-- <app-toaster *ngIf="toast"></app-toaster> -->

@@ -1,0 +1,165 @@
+<div *ngIf="cartItems.length > 0" class="container mx-auto mt-20">
+
+  <section class="flex items-center bg-stone-200 font-poppins dark:bg-gray-700 ">
+    <div class="justify-center flex-1 px-4 py-6 mx-auto max-w-7xl lg:py-4 md:px-6">
+      <div class="p-8 bg-gray-50 dark:bg-gray-800">
+        <!-- <h2 class="mb-8 text-4xl font-bold dark:text-gray-400">Your Cart</h2> -->
+        <div class="flex flex-wrap -mx-4">
+          <div class="w-full px-4 mb-8 xl:w-8/12 xl:mb-0">
+            <div class="flex flex-wrap items-center mb-6 -mx-4 md:mb-8">
+              <div class="w-full md:block hidden px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0">
+                <h2 class="font-bold text-gray-500 dark:text-gray-400">Product</h2>
+              </div>
+              <div class="hidden px-4 lg:block lg:w-2/12">
+                <h2 class="font-bold text-gray-500 dark:text-gray-400">Price</h2>
+              </div>
+              <div class="hidden md:block px-4 md:w-1/6 lg:w-2/12 ">
+                <h2 class="font-bold text-gray-500 dark:text-gray-400">Quantity</h2>
+              </div>
+              <div class="hidden md:block px-4 text-right md:w-1/6 lg:w-2/12 ">
+                <h2 class="font-bold text-gray-500 dark:text-gray-400"> Subtotal</h2>
+              </div>
+            </div>
+            <div class="py-4 mb-8 border-t border-b border-gray-200 dark:border-gray-700">
+              <div class="flex flex-wrap items-center mb-6 -mx-4 md:mb-8" *ngFor="let s of cartItems">
+                <div class="w-full px-4 mb-6 md:w-4/6 lg:w-6/12 md:mb-0">
+                  <div class="flex flex-wrap items-center -mx-4">
+                    <div class="w-full px-4 mb-3 md:w-1/3">
+                      <div class="w-full h-96 md:h-24 md:w-24">
+                        <img [src]="s.imageUrl" [alt]="s.name" class="object-cover w-full h-full"
+                          crossorigin="anonymous">
+                      </div>
+                    </div>
+                    <div class="w-2/3 px-4">
+                      <h2 class="mb-2 text-xl font-bold dark:text-gray-400">{{s.name}}</h2>
+                      <p class="text-gray-500 dark:text-gray-400 ">{{s.category}}</p>
+                      <a (click)="remove(s)" class="font-semibold cursor-pointer text-red-500 text-xs">Remove</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="hidden px-4 lg:block lg:w-2/12">
+                  <p class="text-lg font-bold text-blue-500 dark:text-gray-400">ETH {{s.price}}</p>
+                  <span class="text-xs text-gray-500 line-through dark:text-gray-400">$1500</span>
+                </div>
+                <div class="w-auto px-4 md:w-1/6 lg:w-2/12 ">
+                  <div
+                    class="inline-flex items-center px-4 font-semibold text-gray-500 border border-gray-200 rounded-md dark:border-gray-700 ">
+                    <button class="py-2 hover:text-gray-700 dark:text-gray-400" (click)="minus(s,$event)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-dash" viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"></path>
+                      </svg>
+                    </button>
+                    <input type="number" [min]="1" [max]="5" [value]="s.quantity"
+                      class="w-12 px-2 py-4 text-center border-0 rounded-md dark:bg-gray-800 bg-gray-50 dark:text-gray-400 md:text-right"
+                      placeholder="1">
+                    <button class="py-2 hover:text-gray-700 dark:text-gray-400" (click)="plus(s,$event)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-plus" viewBox="0 0 16 16">
+                        <path
+                          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
+                        </path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="w-auto px-4 text-right md:w-1/6 lg:w-2/12 ">
+                  <p class="text-lg font-bold text-blue-500 dark:text-gray-400">ETH {{s.quantity * s.price}}</p>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="flex flex-wrap items-center gap-4">
+              <span class="text-gray-700 dark:text-gray-400">Apply Coupon</span>
+              <input type="text" #promo id="promo" [(ngModel)]="promocodeValue"
+                class="flex-1 px-8 py-4 font-normal placeholder-gray-300 border dark:border-gray-700 dark:placeholder-gray-500 md:flex-none md:mr-6 dark:text-gray-400 dark:bg-gray-800"
+                placeholder="x304k45" required="">
+              <button (click)="promocode(promo.value)"
+                class="flex-1 inline-block px-8 py-4 font-bold text-center text-gray-100 bg-blue-500 rounded-md hover:bg-blue-600 md:flex-none">{{promocodeText
+                == true ? 'Applied':'Apply'}}</button>
+            </div> -->
+          </div>
+          <div class="w-full px-4 xl:w-4/12">
+            <div class="p-6 border border-blue-100 dark:bg-gray-900 dark:border-gray-900 bg-blue-50 md:p-8">
+              <h2 class="mb-8 text-3xl font-bold text-gray-700 dark:text-gray-400">Order Summary</h2>
+              <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-300 dark:border-gray-700 ">
+                <span class="text-gray-700 dark:text-gray-400">Subtotal</span>
+                <span class="text-xl font-bold text-gray-700 dark:text-gray-400 ">ETH {{sum}}</span>
+              </div>
+              <div class="flex items-center justify-between pb-4 mb-4 ">
+                <span class="text-gray-700 dark:text-gray-400 ">Shipping</span>
+                <span class="text-xl font-bold text-gray-700 dark:text-gray-400 ">Free</span>
+              </div>
+              <div class="flex items-center justify-between pb-4 mb-4 ">
+                <span class="text-gray-700 dark:text-gray-400">Order Total</span>
+                <span class="text-xl font-bold text-gray-700 dark:text-gray-400">ETH {{sum}}</span>
+              </div>
+              <!-- <h2 class="text-lg text-gray-500 dark:text-gray-400">We offer:</h2>
+              <div class="flex items-center mb-4 ">
+                <a href="#">
+                  <img src="https://i.postimg.cc/g22HQhX0/70599-visa-curved-icon.png" alt=""
+                    class="object-cover h-16 mr-2 w-26">
+                </a>
+                <a href="#">
+                  <img src="https://i.postimg.cc/HW38JkkG/38602-mastercard-curved-icon.png" alt=""
+                    class="object-cover h-16 mr-2 w-26">
+                </a>
+                <a href="#">
+                  <img src="https://i.postimg.cc/HL57j0V3/38605-paypal-straight-icon.png" alt=""
+                    class="object-cover h-16 mr-2 w-26">
+                </a>
+              </div> -->
+              <div class="flex items-center justify-between ">
+                <button routerLink="/checkout"
+                  class="block w-full py-4 font-bold text-center text-gray-100 uppercase bg-primary rounded-md">Checkout</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div *ngIf="cartItems.length <= 0" class="text-center mt-20 mb-4">
+  <div class="flex justify-center">
+    <svg class="w-full h-[30vh]" style="enable-background:new 0 0 500 500;" version="1.1" viewBox="0 0 500 500"
+      xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g id="empty-delete-remove-shopping-cart">
+        <g>
+          <polygon
+            points="500,250 473.216,279.409 491.536,314.718 458.049,336.172 466.532,375.03 428.619,387.055     426.778,426.778 387.044,428.619 375.02,466.543 336.161,458.049 314.707,491.547 279.409,473.226 250,500 220.581,473.226     185.282,491.547 163.818,458.049 124.959,466.543 112.945,428.619 73.222,426.778 71.371,387.044 33.458,375.021 41.941,336.172     8.453,314.718 26.774,279.409 0,250 26.774,220.591 8.453,185.282 41.941,163.829 33.458,124.97 71.371,112.956 73.222,73.222     112.956,71.381 124.97,33.468 163.829,41.952 185.282,8.463 220.581,26.784 250,0 279.409,26.784 314.718,8.463 336.172,41.962     375.03,33.468 387.044,71.381 426.778,73.232 428.619,112.966 466.532,124.98 458.049,163.839 491.536,185.282 473.216,220.591       "
+            style="fill:#9DD2D8;" />
+          <g id="_x32_0">
+            <g>
+              <g>
+                <path
+                  d="M340.942,158.595c-16.876,0-30.823,12.344-33.396,28.493c-0.274,1.75-0.458,3.53-0.458,5.361       c0,3.799,0.651,7.441,1.811,10.854c3.348,9.878,11.129,17.7,20.986,21.113c3.469,1.206,7.172,1.887,11.058,1.887       c1.719,0,3.397-0.173,5.046-0.417c16.296-2.446,28.809-16.48,28.809-33.437C374.797,173.742,359.64,158.595,340.942,158.595z"
+                  style="fill:#FC6E51;" />
+                <path
+                  d="M357.839,197.825h-2.787h-8.738h-10.752h-11.516c-2.96,0-5.382-2.416-5.382-5.376       c0-2.93,2.35-5.29,5.25-5.361c0.051,0,0.081-0.025,0.132-0.025h11.516h10.752h11.525c0.041,0,0.081,0.025,0.122,0.025       c0.184,0.005,0.346,0.081,0.519,0.102c2.665,0.336,4.721,2.513,4.721,5.26C363.2,195.409,360.819,197.825,357.839,197.825z"
+                  style="fill:#F4F8F8;" />
+              </g>
+            </g>
+            <path
+              d="M300.09,324.081c0,9.573,7.762,17.329,17.334,17.329c9.572,0,17.334-7.756,17.334-17.329     c0-9.577-7.762-17.344-17.334-17.344C307.852,306.737,300.09,314.504,300.09,324.081z"
+              style="fill:#484B4D;" />
+            <path
+              d="M216.776,324.081c0-9.577-7.751-17.344-17.324-17.344c-9.582,0-17.334,7.767-17.334,17.344     c0,9.573,7.751,17.329,17.334,17.329C209.025,341.41,216.776,333.654,216.776,324.081z"
+              style="fill:#484B4D;" />
+            <path
+              d="M341.207,234.278c-9.095,0-17.486-2.96-24.333-7.914h-23.021l1.984-23.062h5.137     c-0.905-3.418-1.444-6.998-1.444-10.701c0-1.872,0.173-3.703,0.406-5.514H182.21l-8.27-27.969h-0.132h-18.178h-30.426v14.755     h34.79l13.081,44.261l25.249,85.815H320.78l22.532-69.779C342.61,234.207,341.919,234.278,341.207,234.278z M187.001,203.303     h41.168l1.973,23.062h-36.326L187.001,203.303z M195.557,235.591h35.38l1.984,23.203h-30.904L195.557,235.591z M210.907,290.807     l-6.328-22.786h29.134l1.953,22.786H210.907z M279.083,290.807h-34.159l-1.953-22.786h38.056L279.083,290.807z M281.819,258.794     h-39.642l-1.983-23.203h43.61L281.819,258.794z M284.597,226.364H239.41l-1.973-23.062h49.133L284.597,226.364z M310.16,290.807     h-21.82l1.953-22.786h26.632L310.16,290.807z M319.661,258.794h-28.585l1.994-23.203h33.488L319.661,258.794z"
+              style="fill:#484B4D;" />
+          </g>
+        </g>
+      </g>
+      <g id="Layer_1" />
+    </svg>
+  </div>
+  <h2 class="text-red-500">Your cart is empty</h2>
+  <h2 class="text-red-500">Add somthing to make me happy!</h2>
+  <button routerLink="/shop"
+    class="py-2 px-5 rounded-full text-sm text-indigo-500 hover:text-indigo-700 border border-indigo-500 hover:border-indigo-700 duration-300">
+    Go to shop
+  </button>
+</div>

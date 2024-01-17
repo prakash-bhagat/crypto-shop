@@ -1,0 +1,88 @@
+<div *ngIf="!skeleton" class="mt-20">
+    <!-- carousel -->
+    <owl-carousel-o [options]="carouselOptions">
+
+        <ng-container *ngFor="let slide of slider">
+          <ng-template carouselSlide [id]="slide.title">
+            <img [src]="slide.imageUrl" [id]="slide.title" [alt]="slide.alt" [title]="slide.title" class="w-full h-80" crossorigin="anonymous">
+          </ng-template>
+        </ng-container>
+    
+      </owl-carousel-o>
+    <!-- ./carousel -->
+
+    <!-- categories -->
+    <div class="py-16 px-8">
+        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">shop by category</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 place-items-center gap-3">
+            <div class="relative h-48 rounded-sm group" *ngFor="let c of category">
+                <img src="{{c.cat_url}}" crossorigin="anonymous" alt="category 1"
+                    class="w-full h-full cursor-pointer border border-primary">
+                <a (click)="searchByCategory(c)"
+                    class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-white font-roboto font-medium group-hover:bg-opacity-60 transition">{{c.name}}</a>
+            </div>
+        </div>
+    </div>
+    <!-- ./categories -->
+
+    <!-- ads -->
+    <div class="pb-16 px-8 w-full">
+        <a *ngFor="let a of banner">
+            <img *ngIf="a.position == 1" [src]="a.imageUrl" [alt]="a.title" class="w-full" crossorigin="anonymous">
+        </a>
+    </div>
+    <!-- ./ads -->
+
+    <!-- new arrival -->
+    <div class="pb-16 px-8">
+        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">top new arrival</h2>
+        <!-- <div class="grid grid-cols-1 md:grid-cols-4 gap-6"> -->
+            <!-- ✅ Grid Section - Starts Here 👇 -->
+            <section id="Projects"
+                class="w-fit mx-auto my-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+
+                <!--   ✅ Product card 1 - Starts Here 👇 -->
+                <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
+                    *ngFor="let p of product">
+                    <a (click)="productList(p.id)">
+                        <img src="{{p.imageUrl}}" crossorigin="anonymous" class="h-80 w-72 object-cover rounded-t-xl" />
+                        <div class="px-4 py-3 w-72">
+                            <span class="text-gray-400 mr-3 uppercase text-xs">{{p.category}}</span>
+                            <p class="text-lg font-bold text-black truncate block capitalize">{{p.name | slice:0:13}}
+                            </p>
+                            <div class="flex items-center">
+                                <p class="text-lg font-semibold text-black cursor-auto my-3">ETH {{p.price}}</p>
+                                <del>
+                                    <p class="text-sm text-gray-600 cursor-auto ml-2">$199</p>
+                                </del>
+                                <div class="ml-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        (click)="addToCart(p)" fill="currentColor" class="bi bi-bag-plus"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
+                                        <path
+                                            d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        <!-- </div> -->
+    </div>
+    <!-- ./new arrival -->
+
+    <!-- ads -->
+    <div class="pb-16 px-8">
+        <a *ngFor="let a of banner">
+            <img *ngIf="a.position == 2" [src]="a.imageUrl" [alt]="a.title" class="w-full h-80" crossorigin="anonymous">
+        </a>
+    </div>
+    <!-- ./ads -->
+</div>
+
+<div *ngIf="skeleton" class="mt-4">
+    <home></home>
+</div>

@@ -1,0 +1,145 @@
+<!-- breadcrumb -->
+<!-- <div class="container py-4 flex items-center gap-3">
+    <a href="../index.html" class="text-primary text-base">
+        <i class="fa-solid fa-house"></i>
+    </a>
+    <span class="text-sm text-gray-400">
+        <i class="fa-solid fa-chevron-right"></i>
+    </span>
+    <p class="text-gray-600 font-medium">Account</p>
+</div> -->
+<!-- ./breadcrumb -->
+  
+<app-user-menu></app-user-menu>
+
+<!-- account wrapper -->
+<div class="w-full items-center justify-center gap-6 pt-4 pb-16">
+    
+    <!-- sidebar -->
+    <!-- <div class="col-span-2 abf hidden md:block md:w-auto">
+        <div class="px-4 py-3 shadow flex items-center gap-4">
+            <div class="flex-shrink-0">
+                <img src="../assets/images/avatar.png" alt="profile"
+                    class="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover">
+            </div>
+            <div class="flex-grow">
+                <p class="text-gray-600">Hello,</p>
+                <h4 class="text-gray-800 font-medium">{{userInfo.n}}</h4>
+            </div>
+        </div>
+
+        <div class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
+            <div class="space-y-1 pl-8">
+                <a class="relative text-primary block font-medium capitalize transition">
+                    <span class="absolute -left-8 top-0 text-base">
+                        <i class="fa-regular fa-address-card"></i>
+                    </span>
+                    Manage account
+                </a>
+                <a routerLink="/history" class="relative hover:text-primary block capitalize transition">
+                    Order history
+                </a>
+                <a routerLink="/reset" class="relative hover:text-primary block capitalize transition">
+                    Change password
+                </a>
+            </div>
+        </div>
+    </div> -->
+    <!-- ./sidebar -->
+
+    <!-- sidebar -->
+        <!-- drawer -->
+        <!-- <div class="flex md:hidden">
+        </div> -->
+        <!-- drawer end -->
+        <!-- ./sidebar -->
+
+    <!-- info -->
+    <div class="grid grid-cols-1 lg:grid-cols-1 gap-4">
+
+        <div *ngIf="persionalEdit==false" class="shadow rounded bg-white px-4 pt-6 pb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-medium text-gray-800 text-lg">Personal Profile</h3>
+                <a (click)="personal()" class="text-primary cursor-pointer">Edit</a>
+            </div>
+            <div class="space-y-1">
+                <h4 class="text-gray-700 font-medium">{{userInfo.n}}</h4>
+                <p class="text-gray-800">{{userInfo.e}}</p>
+                <p class="text-gray-800">{{userInfo.m}}</p>
+            </div>
+        </div>
+
+        <div *ngIf="persionalEdit==true" class="shadow rounded bg-white px-4 pt-6 pb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-medium text-gray-800 text-lg">Personal Profile</h3>
+                <a (click)="personal()" class="text-primary cursor-pointer">Edit</a>
+            </div>
+            <form class="space-y-1" [formGroup]="personalFormGroup">
+                <div>
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <input type="text" formControlName="name" [value]="personalFormGroup.get('name')?.value" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
+                </div>
+                <div>
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                    <input type="email" formControlName="email" [value]="personalFormGroup.get('email')?.value" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email" required>
+                </div>
+                <!-- <div>
+                    <label for="mobile" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile</label>
+                    <input type="text" formControlName="mobile" [value]="personalFormGroup.get('mobile')?.value" id="mobile" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="mobile" required>
+                </div> -->
+                <div>
+                    <button type="button" (click)="personalSave()" class="focus:outline-none text-white bg-primary hover:bg-gray-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">save</button>
+                </div>
+            </form>
+        </div>
+
+        <div *ngIf="addressEdit==false" class="shadow rounded bg-white px-4 pt-6 pb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-medium text-gray-800 text-lg">Shipping address</h3>
+                <a (click)="address()" class="text-primary cursor-pointer">Edit</a>
+            </div>
+            <div class="space-y-1">
+                <h4 class="text-gray-700 font-medium">{{userAdd?.street}}</h4>
+                <p class="text-gray-800">{{userAdd?.city}} {{userAdd?.state}} {{userAdd?.country | uppercase | slice:0:2}}</p>
+                <p class="text-gray-800">{{userAdd?.postalCode}}</p>
+                <!-- <p class="text-gray-800"></p> -->
+            </div>
+        </div>
+
+        <div *ngIf="addressEdit==true" class="shadow rounded bg-white px-4 pt-6 pb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-medium text-gray-800 text-lg">Shipping address</h3>
+                <a (click)="address()" class="text-primary cursor-pointer">Edit</a>
+            </div>
+            <form class="space-y-1" [formGroup]="addressFormGroup">
+                <div>
+                    <label for="street" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                    <input type="text" formControlName="street" [value]="personalFormGroup.get('street')?.value" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Address" required>
+                </div>
+                <div>
+                    <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                    <input type="text" formControlName="city" [value]="personalFormGroup.get('city')?.value" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="City" required>
+                </div>
+                <div>
+                    <label for="state" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
+                    <input type="text" formControlName="state" [value]="personalFormGroup.get('state')?.value" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="State" required>
+                </div>
+                <div>
+                    <label for="postalCode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Postal code</label>
+                    <input type="text" formControlName="postalCode" [value]="personalFormGroup.get('postalCode')?.value" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Postal code" required>
+                </div>
+                <div>
+                    <label for="country" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                    <input type="text" formControlName="country" [value]="personalFormGroup.get('country')?.value" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Country" required>
+                </div>
+                <div>
+                    <button type="button" (click)="addressSave()" class="focus:outline-none text-white bg-primary hover:bg-gray-800 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">save</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <!-- ./info -->
+
+</div>
+<!-- ./account wrapper -->

@@ -1,0 +1,73 @@
+.time {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    position: relative;
+    background-color: #FFF;
+    background: radial-gradient(ellipse at center, #FF3D00 0%, #FF3D00 14%, #FFF 15%, #FFF 100%);
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+  }
+  .time::after,
+  .time::before {
+    content: '';  
+    position: absolute;
+    height: 16px;
+    width: 4px;
+    background: #FF3D00;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    transform-origin: 25% 0;
+    box-sizing: border-box;
+    animation: rotation 10s linear infinite;
+  }
+  .time::before {
+    height: 22px;
+    width: 2px;
+    transform: translateX(-50%) rotate(0deg);
+    animation-duration: 1s;
+  } 
+  @keyframes rotation {
+    0%    { transform: rotate(0deg)}
+    100%  { transform: rotate(360deg)}
+  } 
+
+
+.loader {
+    transform: translateZ(1px);
+  }
+  .loader:after {
+    content: '$';
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    text-align: center;
+    line-height:40px;
+    font-size: 32px;
+    font-weight: bold;
+    background: #FFD700;
+    color: #DAA520;
+    border: 4px double ;
+    box-sizing: border-box;
+    box-shadow:  2px 2px 2px 1px rgba(0, 0, 0, .1);
+    animation: coin-flip 4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  @keyframes coin-flip {
+    0%, 100% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    }
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(1800deg);
+      animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+    }
+    100% {
+      transform: rotateY(3600deg);
+    }
+  }
+        
